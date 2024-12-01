@@ -1,0 +1,30 @@
+﻿@model FinalProject.Data.Entities.Train
+
+@{
+    ViewData["Title"] = "Справка за влак";
+}
+
+<h1 class="text-center">Справка за влак</h1>
+
+<div>
+    <h4>Влак</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TrainNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TrainNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> |
+    <a class="btn btn-outline-primary" asp-action="Index">Върни се към списъка</a>
+</div>

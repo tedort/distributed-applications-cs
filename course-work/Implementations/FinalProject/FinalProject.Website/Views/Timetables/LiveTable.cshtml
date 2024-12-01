@@ -1,0 +1,70 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewBag.Title = "Live Табло";
+    var sortOrder = ViewBag.CurrentSort;
+    var trainSort = ViewBag.TrainSortParam;
+    var arrivalStationSort = ViewBag.ArrivalStationSortParam;
+    var arrivalSort = ViewBag.ArrivalSortParam;
+    var departingStationSort = ViewBag.DepartingStationSortParam;
+    var departingSort = ViewBag.DepartingSortParam;
+    var trackSort = ViewBag.TrackSortParam;
+}
+
+<h2 class="text-center">Live Табло</h2>
+
+<form method="get" action="/Timetables/LiveTable">
+    <label for="stationSelect">Изберете гара:</label>
+    <select id="stationSelect" name="stationId" class="form-select">
+        <option value="" disabled selected>Изберете гара</option>
+        @foreach (var station in (IEnumerable<dynamic>)ViewBag.Stations)
+        {
+            <option value="@station.Id">@station.Name</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Покажи разписание</button>
+</form>
+
+@if (Model != null)
+{
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Влак</th>
+                <th>Пристига от</th>
+                <th>Час</th>
+                <th>Заминава за</th>
+                <th>Час</th>
+                <th>Коловоз</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>@row.TrainNumber</td>
+                    <td>@row.ArrivesFrom</td>
+                    <td>@row.ArrivalTime?.ToString("HH:mm")</td>
+                    <td>@row.DepartsTo</td>
+                    <td>@row.DepartureTime?.ToString("HH:mm")</td>
+                    <td>@row.PlatformNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p class="text-center mt-4">Няма пристигащи/заминаващи влакове за избраната гара!</p>
+}
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.SortOrder }), new PagedListRenderOptions
+{
+    UlElementClasses = new List<string> { "pagination" },
+    LiElementClasses = new List<string> { "page-item" },
+    PageClasses = new List<string> { "page-link" },
+    ActiveLiElementClass = "active"
+})
+</div>

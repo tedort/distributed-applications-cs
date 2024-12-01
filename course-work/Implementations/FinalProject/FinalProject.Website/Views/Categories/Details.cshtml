@@ -1,0 +1,30 @@
+﻿@model FinalProject.Data.Entities.Category
+
+@{
+    ViewData["Title"] = "Справка за категория";
+}
+
+<h1 class="text-center">Справка за категория</h1>
+
+<div>
+    <h4>Категория</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WagoonsCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WagoonsCount)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> |
+    <a class="btn btn-outline-primary" asp-action="Index">Върни се към списъка</a>
+</div>

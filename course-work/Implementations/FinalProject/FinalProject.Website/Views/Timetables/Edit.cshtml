@@ -1,0 +1,61 @@
+﻿@model FinalProject.Data.Entities.Timetable
+
+@{
+    ViewData["Title"] = "Редактирай разписание";
+}
+
+<h1 class="text-center">Редактирай разписание</h1>
+
+<h4>Разписание</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TrainId" class="control-label"></label>
+                <select asp-for="TrainId" class="form-control" asp-items="ViewBag.TrainId"></select>
+                <span asp-validation-for="TrainId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StationId" class="control-label"></label>
+                <select asp-for="StationId" class="form-control" asp-items="ViewBag.StationId"></select>
+                <span asp-validation-for="StationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalTime" class="control-label"></label>
+                <input asp-for="ArrivalTime" class="form-control" />
+                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureTime" class="control-label"></label>
+                <input asp-for="DepartureTime" class="form-control" />
+                <span asp-validation-for="DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlatformNumber" class="control-label"></label>
+                <input asp-for="PlatformNumber" class="form-control" />
+                <span asp-validation-for="PlatformNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsStartStation" /> @Html.DisplayNameFor(model => model.IsStartStation)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFinalStation" /> @Html.DisplayNameFor(model => model.IsFinalStation)
+                </label>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Запиши" class="btn btn-primary mg-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outlite-primary mg-2" asp-action="Index">Върни се към списъка</a>
+</div>
+

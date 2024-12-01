@@ -1,0 +1,126 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@model IEnumerable<FinalProject.Data.Entities.Timetable>
+
+@{
+    ViewData["Title"] = "Разписания";
+    var searchTrainId = ViewBag.TrainSearch;
+    var searchStationId = ViewBag.StationSearch;
+    var sortOrder = ViewBag.CurrentSort;
+    var trainSort = ViewBag.TrainSortParam;
+    var stationSort = ViewBag.StationSortParam;
+    var arrivalSort = ViewBag.ArrivalSortParam;
+    var departingSort = ViewBag.DepartingSortParam;
+    var trackSort = ViewBag.TrackSortParam;
+}
+
+<h1 class="text-center">Разписания</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Добави ново разписание</a>
+    </p>
+}
+
+<form asp-action="Index">
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="@searchTrainId" class="control-label">Изберете влак</label>
+            <select asp-for="@searchTrainId" class="form-control mb-2" asp-items="ViewBag.Trains"></select>
+            <label asp-for="@searchStationId" class="control-label">Изберете гара</label>
+            <select asp-for="@searchStationId" class="form-control" asp-items="ViewBag.Stations"></select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary">Търси</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@trainSort">
+                    @Html.DisplayNameFor(model => model.Train)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@stationSort">
+                    @Html.DisplayNameFor(model => model.Station)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@arrivalSort">
+                    @Html.DisplayNameFor(model => model.ArrivalTime)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@departingSort">
+                    @Html.DisplayNameFor(model => model.DepartureTime)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@trackSort">
+                    @Html.DisplayNameFor(model => model.PlatformNumber)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsStartStation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFinalStation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Train.TrainNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Station.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlatformNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsStartStation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFinalStation)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> <span>|</span>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Виж</a>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span>|</span>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.SortOrder }), new PagedListRenderOptions
+{
+    UlElementClasses = new List<string>{"pagination"},
+    LiElementClasses = new List<string>{"page-item"},
+    PageClasses = new List<string>{"page-link"},
+    ActiveLiElementClass = "active"
+})
+</div>

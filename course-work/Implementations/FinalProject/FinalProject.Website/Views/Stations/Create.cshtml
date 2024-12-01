@@ -1,0 +1,53 @@
+﻿@model FinalProject.Data.Entities.Station
+
+@{
+    ViewData["Title"] = "Добави гара";
+}
+
+<h1 class="text-center">Добави нова гара</h1>
+
+<h4>Гара</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TracksCount" class="control-label"></label>
+                <input asp-for="TracksCount" class="form-control" />
+                <span asp-validation-for="TracksCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlatfromsCount" class="control-label"></label>
+                <input asp-for="PlatfromsCount" class="form-control" />
+                <span asp-validation-for="PlatfromsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasCashDesk" /> @Html.DisplayNameFor(model => model.HasCashDesk)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Запиши" class="btn btn-primary mb-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outline-primary" asp-action="Index">Върни се към списъка</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

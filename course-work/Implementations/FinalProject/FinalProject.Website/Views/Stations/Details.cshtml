@@ -1,0 +1,48 @@
+﻿@model FinalProject.Data.Entities.Station
+
+@{
+    ViewData["Title"] = "Справка за гара";
+}
+
+<h1 class="text-center">Справка за гара</h1>
+
+<div>
+    <h4>Гара</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TracksCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TracksCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PlatfromsCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PlatfromsCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HasCashDesk)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HasCashDesk)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> |
+    <a class="btn btn-outline-primary" asp-action="Index">Върни се към списъка</a>
+</div>
